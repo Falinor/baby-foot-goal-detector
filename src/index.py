@@ -3,6 +3,8 @@ import RPi.GPIO as GPIO
 import time
 import statistics
 
+import client
+
 DISTANCE_THRESHOLD = 2
  
 #GPIO Mode (BOARD / BCM)
@@ -50,7 +52,7 @@ def ref_distance():
     return average
 
 def is_goal(ref_dist, dist):
-    return ref_dist - dist > DISTANCE_THRESHOLD
+    return abs(ref_dist - dist) > DISTANCE_THRESHOLD
  
 if __name__ == '__main__':
     try:
@@ -62,7 +64,9 @@ if __name__ == '__main__':
             goal = is_goal(ref_dist, dist)
             if goal:
                 print("Goal!")
-            time.sleep(1)
+                client.sio.emit('goal:scored', 'batman')
+                time.sleep(10)
+            time.sleep(0.5)
  
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
