@@ -6,7 +6,7 @@ import statistics
 import client
 
 
-DISTANCE_THRESHOLD = 3
+DISTANCE_THRESHOLD = 2
 
 # GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
