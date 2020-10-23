@@ -8,7 +8,7 @@ import client
 
 DISTANCE_THRESHOLD = 3
 
-#GPIO Mode (BOARD / BCM)
+# GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
 
 class Detector:
@@ -63,7 +63,7 @@ class Detector:
 
     def measure(self):
         dist = self.distance()
-        print ("Measured Distance = %.1f cm" % dist)
+        print("{} distance = {} cm".format(self.team, dist))
         goal = self.is_goal(self.ref_dist, dist)
         if goal:
             print("Goal scored against %s!" % self.team)

@@ -4,16 +4,17 @@ import time
 import statistics
 
 import client
-from detector import Detector
+import detector
 
 if __name__ == '__main__':
     try:
         detectors = [
-            Detector('joker', 17, 27),
-            Detector('batman', 23, 24)
+            detector.Detector('joker', 17, 27),
+            detector.Detector('batman', 23, 24)
         ]
         while True:
-            map(lambda detector: detector.measure(), detectors)
+            for detec in detectors:
+                detec.measure()
             time.sleep(0.5)
 
         # Reset by pressing CTRL + C
