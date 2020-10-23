@@ -4,7 +4,7 @@ import time
 import statistics
 
 import client
-import detector
+from detector import Detector
 
 if __name__ == '__main__':
     try:
@@ -12,7 +12,6 @@ if __name__ == '__main__':
             Detector('joker', 17, 27),
             Detector('batman', 23, 24)
         ]
-        print("Reference distance = %.1f cm" % ref_dist)
         while True:
             map(lambda detector: detector.measure(), detectors)
             time.sleep(0.5)
