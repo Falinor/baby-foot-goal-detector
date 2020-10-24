@@ -1,18 +1,20 @@
 # Libraries
 import RPi.GPIO as GPIO
-import time
 import statistics
+import time
 
 import client
 import detector
 import lights
 
+
 if __name__ == '__main__':
     try:
+        lights.disable_all()
         lights.meteor()
         detectors = [
-            detector.Detector('joker', 17, 27),
-            detector.Detector('batman', 23, 24)
+            detector.Detector('joker', 17, 27, lights.yellow),
+            detector.Detector('batman', 23, 24, lights.purple)
         ]
         while True:
             for detec in detectors:
@@ -22,4 +24,5 @@ if __name__ == '__main__':
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
         print("Measurement stopped by User")
+        lights.disable_all()
         GPIO.cleanup()

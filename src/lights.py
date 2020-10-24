@@ -2,15 +2,36 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 
+METEOR = 13
+YELLOW = 26
+PURPLE = 19
+
+GPIO.setup(METEOR, GPIO.OUT)
+GPIO.setup(YELLOW, GPIO.OUT)
+GPIO.setup(PURPLE, GPIO.OUT)
+
 def trigger(pin):
-  GPIO.setup(trigger, GPIO.OUT)
-  GPIO.output(trigger, True)
+    GPIO.output(pin, True)
+
+def disable(pin):
+    GPIO.output(pin, False)
+
+def disable_all():
+    disable(METEOR)
+    disable(YELLOW)
+    disable(PURPLE)
  
 def meteor():
-  trigger(26)
+    disable_all()
+    print('Now playing meteor')
+    trigger(METEOR)
 
 def yellow():
-  trigger(19)
+    disable_all()
+    print('Now playing yellow')
+    trigger(YELLOW)
 
 def purple():
-  trigger(13)
+    disable_all()
+    print('Now playing purple')
+    trigger(PURPLE)

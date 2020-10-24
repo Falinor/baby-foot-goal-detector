@@ -4,18 +4,21 @@ import time
 import statistics
 
 import client
+import lights
 
 
-DISTANCE_THRESHOLD = 2
+DISTANCE_THRESHOLD = 2.5
+TIME_BEFORE_LIGHT_RESET = 2
 
 # GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
 
 class Detector:
-    def __init__(self, team, trigger, echo):
+    def __init__(self, team, trigger, echo, light_up):
         self.trigger = trigger
         self.echo = echo
         self.team = team
+        self.light_up = light_up
 
         # Set GPIO direction (IN / OUT)
         GPIO.setup(self.trigger, GPIO.OUT)
@@ -68,5 +71,9 @@ class Detector:
         if goal:
             print("Goal scored against %s!" % self.team)
             client.sio.emit('goal:scored', self.team)
-            time.sleep(10)
-
+            self.light_up()
+            # Reset lights when the ball is removed from the goal cages
+            while self.is_goal(self.ref_dist, dist):
+                dist = self.distance()
+                time.sleep(TIME_BEFORE_LIGHT_RESET)
+            lights.meteor()
