@@ -5,9 +5,11 @@ import statistics
 
 import client
 import detector
+import lights
 
 if __name__ == '__main__':
     try:
+        lights.meteor()
         detectors = [
             detector.Detector('joker', 17, 27),
             detector.Detector('batman', 23, 24)
