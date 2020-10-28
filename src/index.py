@@ -13,8 +13,8 @@ if __name__ == '__main__':
         lights.disable_all()
         lights.meteor()
         detectors = [
-            detector.Detector('joker', 17, 27, lights.yellow),
-            detector.Detector('batman', 23, 24, lights.purple)
+            detector.Detector('Joker', 17, 27, lights.yellow),
+            detector.Detector('Batman', 23, 24, lights.purple)
         ]
         while True:
             for detec in detectors:
