@@ -3,9 +3,6 @@ import RPi.GPIO as GPIO
 import time
 import statistics
 
-import client
-import lights
-
 
 DISTANCE_THRESHOLD = 2.5
 TIME_BEFORE_LIGHT_RESET = 2
@@ -66,14 +63,4 @@ class Detector:
 
     def measure(self):
         dist = self.distance()
-        print("{} distance = {} cm".format(self.team, dist))
-        goal = self.is_goal(self.ref_dist, dist)
-        if goal:
-            print("Goal scored against %s!" % self.team)
-            client.sio.emit('goal:scored', self.team)
-            self.light_up()
-            # Reset lights when the ball is removed from the goal cages
-            while self.is_goal(self.ref_dist, dist):
-                dist = self.distance()
-                time.sleep(TIME_BEFORE_LIGHT_RESET)
-            lights.meteor()
+        return self.is_goal(self.ref_dist, dist)
