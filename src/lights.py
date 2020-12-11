@@ -4,7 +4,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 METEOR = 13
-YELLOW = 26
+YELLOW = 6
 PURPLE = 19
 
 GPIO.setup(METEOR, GPIO.OUT)
