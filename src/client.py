@@ -15,4 +15,11 @@ def my_message(data):
 def disconnect():
     print('disconnected from server')
 
-sio.connect('ws://192.168.1.42:4000')
+def emit(event, data):
+    if sio.connected:
+        sio.emit(event, data)
+
+try:
+    sio.connect('ws://192.168.1.42:4000')
+except socketio.exceptions.ConnectionError:
+    print('Cannot connect to the server. Continuing...')

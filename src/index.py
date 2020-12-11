@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import statistics
 import time
 
-# import client
+import client
 import detector
 import lights
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
                     if state['light_status'] == 'meteor':
                         # Goal
                         print("Goal scored against %s!" % self.team)
-                        # client.sio.emit('goal:scored', self.team)
+                        client.emit('goal:scored', self.team)
                         detec.light_up()
                         state['light_status'] = detec.team
 
@@ -39,7 +39,6 @@ if __name__ == '__main__':
                     state['goal_timer'] -= 1
                     if state['goal_timer'] == 0:
                       state['light_status'] = 'meteor'
-                      lights.disable_all()
                       lights.meteor()
             time.sleep(0.1)
 
