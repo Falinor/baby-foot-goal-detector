@@ -6,6 +6,7 @@ import time
 import client
 import detector
 import lights
+import sound
 
 
 state = {
@@ -17,8 +18,9 @@ DEFAULT_GOAL_TIMER = 40
 
 if __name__ == '__main__':
     try:
-        lights.disable_all()
         lights.meteor()
+        anthem = sound.Sound('uefa-anthem.mp3')
+        anthem.play()
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
             detector.Detector('Batman', 23, 17, lights.purple)
