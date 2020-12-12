@@ -22,7 +22,6 @@ if __name__ == '__main__':
         lights.meteor()
         anthem = sound.Sound(os.path.join(os.getcwd(), 'src', 'sounds', 'uefa-anthem.mp3'))
         anthem.play()
-        anthem.wait()
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
             detector.Detector('Batman', 23, 17, lights.purple)
@@ -50,5 +49,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         lights.disable_all()
-        anthem.stop()
         GPIO.cleanup()
