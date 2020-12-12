@@ -19,7 +19,7 @@ DEFAULT_GOAL_TIMER = 40
 if __name__ == '__main__':
     try:
         lights.meteor()
-        anthem = sound.Sound('uefa-anthem.mp3')
+        anthem = sound.Sound('sounds/uefa-anthem.mp3')
         anthem.play()
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
