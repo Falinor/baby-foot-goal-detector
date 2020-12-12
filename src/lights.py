@@ -37,3 +37,10 @@ def yellow():
 def purple():
     trigger(PURPLE)
     print('Now playing purple')
+
+if __name__ == '__main__':
+    meteor()
+    time.sleep(2)
+    yellow()
+    time.sleep(2)
+    purple()

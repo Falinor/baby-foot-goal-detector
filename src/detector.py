@@ -61,6 +61,8 @@ class Detector:
     def is_goal(self, ref_dist, dist):
         return abs(ref_dist - dist) > DISTANCE_THRESHOLD
 
-    def measure(self):
+    def measure(self, log = False):
         dist = self.distance()
+        if log:
+            print(self.team, dist)
         return self.is_goal(self.ref_dist, dist)
