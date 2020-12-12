@@ -1,5 +1,6 @@
 # Libraries
 import RPi.GPIO as GPIO
+import os
 import statistics
 import time
 
@@ -19,7 +20,7 @@ DEFAULT_GOAL_TIMER = 40
 if __name__ == '__main__':
     try:
         lights.meteor()
-        anthem = sound.Sound('sounds/uefa-anthem.mp3')
+        anthem = sound.Sound(os.path.join(os.getcwd(), 'src', 'sounds', 'uefa-anthem.mp3'))
         anthem.play()
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
