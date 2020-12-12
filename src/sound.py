@@ -1,4 +1,5 @@
 import glob
+import pygame
 from pygame.mixer import init, music
 import time
 
@@ -12,7 +13,12 @@ class Sound:
         self.sound = music.load(path)
 
     def play(self):
+        print('Playing', self.path)
         music.play()
+        music.set_volume(1)
+
+    def stop(self):
+        music.fadeout(2000)
 
 class Playlist:
     def __init__(self, directory):
