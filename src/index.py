@@ -22,6 +22,7 @@ if __name__ == '__main__':
         lights.meteor()
         anthem = sound.Sound(os.path.join(os.getcwd(), 'src', 'sounds', 'uefa-anthem.mp3'))
         anthem.play()
+        anthem.wait()
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
             detector.Detector('Batman', 23, 17, lights.purple)
@@ -32,8 +33,8 @@ if __name__ == '__main__':
                 if detection:
                     if state['light_status'] == 'meteor':
                         # Goal
-                        print("Goal scored against %s!" % self.team)
-                        client.emit('goal:scored', self.team)
+                        print("Goal scored against %s!" % detec.team)
+                        client.emit('goal:scored', detec.team)
                         detec.light_up()
                         state['light_status'] = detec.team
 
@@ -49,4 +50,5 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         lights.disable_all()
+        anthem.stop()
         GPIO.cleanup()

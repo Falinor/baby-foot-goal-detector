@@ -2,7 +2,7 @@ import glob
 from os.path import join
 from itertools import cycle
 from pydub import AudioSegment
-from pydub.playback import play
+from pydub.playback import play, wait_done, stop
 
 
 class Sound:
@@ -12,6 +12,12 @@ class Sound:
 
     def play(self):
         play(self.sound)
+
+    def wait(self):
+        wait_done(self.sound)
+
+    def stop(self):
+        stop(self.sound)
 
 class Playlist:
     def __init__(self, directory):
