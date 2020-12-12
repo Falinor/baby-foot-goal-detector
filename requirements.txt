@@ -1,2 +1,3 @@
 RPi.GPIO
 python-socketio[client]
+pydub
