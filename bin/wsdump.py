@@ -1,4 +1,4 @@
-#!/home/inad/goal-detector/bin/python3
+#!/home/inad/goal-detector/bin/python3.6
 
 import argparse
 import code

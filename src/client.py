@@ -1,5 +1,6 @@
 import socketio
 
+
 sio = socketio.Client()
 
 @sio.event
@@ -17,7 +18,10 @@ def disconnect():
 
 def emit(event, data):
     if sio.connected:
+        print('Emit', event)
         sio.emit(event, data)
+    else:
+        print('Not connected to server. Skipping', event)
 
 try:
     sio.connect('ws://192.168.1.42:4000')

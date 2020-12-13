@@ -11,38 +11,47 @@ import sound
 
 
 state = {
-  'light_status': 'meteor',
-  'goal_timer': 0
+  'light_status': 'yellow'
 }
 
-DEFAULT_GOAL_TIMER = 40
+DEFAULT_GOAL_TIMEOUT = 30
+
+def countdown(seconds):
+    while seconds > 0:
+        print('Reset in', seconds)
+        time.sleep(1)
+        seconds -= 1
 
 if __name__ == '__main__':
     try:
-        lights.meteor()
         anthem = sound.Sound(os.path.join('src', 'sounds', 'uefa-anthem.mp3'))
         anthem.play()
+        # Test lights
+        lights.meteor()
+        time.sleep(1)
+        lights.purple()
+        time.sleep(1)
+        lights.yellow()
+        time.sleep(1)
+
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
             detector.Detector('Batman', 23, 17, lights.purple)
         ]
         while True:
             for detec in detectors:
-                detection = detec.measure()
+                detection = detec.measure(True)
                 if detection:
-                    if state['light_status'] == 'meteor':
+                    if state['light_status'] != 'meteor':
                         # Goal
+                        lights.meteor()
                         print("Goal scored against %s!" % detec.team)
                         client.emit('goal:scored', detec.team)
+                        state['light_status'] = 'meteor'
+                        countdown(DEFAULT_GOAL_TIMEOUT)
+                        # Highlight the last scoring team
                         detec.light_up()
-                        state['light_status'] = detec.team
-
-                    state['goal_timer'] = DEFAULT_GOAL_TIMER
-                elif state['goal_timer'] > 0:
-                    state['goal_timer'] -= 1
-                    if state['goal_timer'] == 0:
-                      state['light_status'] = 'meteor'
-                      lights.meteor()
+                        state['light_status'] = 'Joker' if detec.team == 'Batman' else 'Batman'
             time.sleep(0.1)
 
         # Reset by pressing CTRL + C
