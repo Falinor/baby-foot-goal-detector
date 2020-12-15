@@ -42,8 +42,10 @@ class Detector:
             StartTime = time.time()
 
         # save time of arrival
-        while GPIO.input(self.echo) == 1:
+        i = 0
+        while GPIO.input(self.echo) == 1 and i < 1000:
             StopTime = time.time()
+            i += 1
 
         # time difference between start and arrival
         TimeElapsed = StopTime - StartTime

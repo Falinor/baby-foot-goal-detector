@@ -14,7 +14,7 @@ state = {
   'light_status': 'yellow'
 }
 
-DEFAULT_GOAL_TIMEOUT = 30
+DEFAULT_GOAL_TIMEOUT = 20
 
 def countdown(seconds):
     while seconds > 0:
@@ -40,7 +40,7 @@ if __name__ == '__main__':
         ]
         while True:
             for detec in detectors:
-                detection = detec.measure(True)
+                detection = detec.measure()
                 if detection:
                     if state['light_status'] != 'meteor':
                         # Goal
