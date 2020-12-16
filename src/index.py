@@ -14,7 +14,7 @@ state = {
   'light_status': 'yellow'
 }
 
-DEFAULT_GOAL_TIMEOUT = 20
+DEFAULT_GOAL_TIMEOUT = 5
 
 def countdown(seconds):
     while seconds > 0:
@@ -26,13 +26,6 @@ if __name__ == '__main__':
     try:
         anthem = sound.Sound(os.path.join('src', 'sounds', 'uefa-anthem.mp3'))
         anthem.play()
-        # Test lights
-        lights.meteor()
-        time.sleep(1)
-        lights.purple()
-        time.sleep(1)
-        lights.yellow()
-        time.sleep(1)
 
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
@@ -50,8 +43,8 @@ if __name__ == '__main__':
                         state['light_status'] = 'meteor'
                         countdown(DEFAULT_GOAL_TIMEOUT)
                         # Highlight the last scoring team
-                        detec.light_up()
                         state['light_status'] = 'Joker' if detec.team == 'Batman' else 'Batman'
+                        detec.light_up()
             time.sleep(0.1)
 
         # Reset by pressing CTRL + C
