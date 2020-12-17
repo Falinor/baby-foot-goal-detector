@@ -2,9 +2,10 @@ from glob import glob
 import time
 import simpleaudio as audio
 from pydub import AudioSegment
-from os import getcwd
 from os.path import join
 from itertools import cycle
+
+import eventbus
 
 
 # 5 seconds crossfade
@@ -34,12 +35,9 @@ class Playlist:
 
         for song in cycle(songs):
             song = song.fade_in(2000).fade_out(3000)
-            # We don't want an abrupt stop at the end, so let's do a crossfade
-            playlist_length = len(song) / (1000 * 60)
             self.song = song
-            print(self.song)
             yield self
-    
+
     def play(self):
         print('Playing song', self.song)
         return audio.play_buffer(
@@ -48,15 +46,7 @@ class Playlist:
             bytes_per_sample=self.song.sample_width,
             sample_rate=self.song.frame_rate 
         )
-    
+
     def wait_done(self):
         print('Before wait_done', self.song)
         self.song.wait_done()
-
-if __name__ == '__main__':
-    playlist = Playlist(join(getcwd(), 'sounds', 'ambiances'))
-    try:
-        for song in playlist.next():
-            song.play().wait_done()
-    except KeyboardInterrupt:
-        print('Exit')
