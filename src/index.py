@@ -24,9 +24,9 @@ def countdown(seconds):
 
 if __name__ == '__main__':
     try:
-        anthem = sound.Sound(os.path.join('src', 'sounds', 'uefa-anthem.mp3'))
-        anthem.play()
-
+        lights.meteor()
+        anthem = sound.Sound(os.path.join(os.getcwd(), 'src', 'sounds', 'uefa-anthem.mp3'))
+        anthem.play().wait_done()
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
             detector.Detector('Batman', 23, 17, lights.purple)
