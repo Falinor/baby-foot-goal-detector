@@ -16,17 +16,19 @@ class Sound:
         self.sound = audio.WaveObject.from_wave_file(path)
 
     def play(self):
-        self.sound.play()
+        self.sound = self.sound.play()
+        return self
     
     def wait_done(self):
         self.sound.wait_done()
+        return self
 
 class Playlist:
     def __init__(self, directory):
-        self.songs = glob(join(directory, "*.mp3"))
+        self.songs = glob(join(directory, "*.wav"))
 
     def next(self):
-        songs = [AudioSegment.from_mp3(mp3_file) for mp3_file in glob("src/sounds/ambiances/*.mp3")]
+        songs = [AudioSegment.from_wav(f) for f in self.songs]
         if len(songs) == 0:
           raise FileNotFoundError
 

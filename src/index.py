@@ -25,12 +25,21 @@ def countdown(seconds):
 if __name__ == '__main__':
     try:
         lights.meteor()
-        anthem = sound.Sound(os.path.join(os.getcwd(), 'src', 'sounds', 'uefa-anthem.mp3'))
+        anthem = sound.Sound(os.path.join(os.getcwd(), 'src', 'sounds', 'uefa-anthem.wav'))
         anthem.play().wait_done()
+
+        lights.yellow()
         detectors = [
             detector.Detector('Joker', 24, 27, lights.yellow),
             detector.Detector('Batman', 23, 17, lights.purple)
         ]
+
+        ambiances = sound.Playlist(os.path.join(os.getcwd(), 'src', 'sounds'))
+        # [sound.play().wait_done() for sound in ambiances.next()]
+        # for sound in ambiances.next():
+            # Thread(target=playlist)
+
+        # TODO: exec in a thread
         while True:
             for detec in detectors:
                 detection = detec.measure()
